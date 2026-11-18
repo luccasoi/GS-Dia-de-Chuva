@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel do bairro</title>
+</head>
+<body>
+    <a th:href="@{/}">Início</a> | <a th:href="@{/bairros}">Bairros</a> | <a th:href="@{/trechos}">Trechos</a> | <a th:href="@{/leituras}">Leituras</a>
+
+    <h1 th:text="'Painel do bairro ' + ${painel.bairroNome}"></h1>
+
+    <p>
+        Normal: <span th:text="${painel.qtdNormal}"></span> |
+        Atenção: <span th:text="${painel.qtdAtencao}"></span> |
+        Alerta: <span th:text="${painel.qtdAlerta}"></span>
+    </p>
+
+    <table border="1">
+        <tr>
+            <th>Trecho</th>
+            <th>Tipo de calçada</th>
+            <th>Altitude (m)</th>
+            <th>Última lâmina (cm)</th>
+            <th>Status</th>
+        </tr>
+        <tr th:each="item : ${painel.itens}">
+            <td th:text="${item.logradouro}"></td>
+            <td th:text="${item.tipoCalcada}"></td>
+            <td th:text="${item.altitude}"></td>
+            <td th:text="${item.ultimaLamina != null} ? ${item.ultimaLamina} : '-'"></td>
+            <td th:text="${item.ultimoStatus != null} ? ${item.ultimoStatus} : 'Sem leitura'"></td>
+        </tr>
+    </table>
+
+    <a th:href="@{/bairros}">Voltar</a>
+</body>
+</html>

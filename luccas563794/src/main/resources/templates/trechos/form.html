@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trecho</title>
+</head>
+<body>
+    <a th:href="@{/}">Início</a> | <a th:href="@{/bairros}">Bairros</a> | <a th:href="@{/trechos}">Trechos</a> | <a th:href="@{/leituras}">Leituras</a>
+
+    <h1 th:text="${trecho.id == null} ? 'Novo trecho' : 'Editar trecho'"></h1>
+
+    <form th:action="@{/trechos/salvar}" th:object="${trecho}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <p>
+            <label>Logradouro
+                <input type="text" th:field="*{logradouro}">
+            </label>
+            <span th:if="${#fields.hasErrors('logradouro')}" th:errors="*{logradouro}" style="color:orangered"></span>
+        </p>
+        <p>
+            <label>Bairro
+                <select th:field="*{bairroId}">
+                    <option value="">Selecione...</option>
+                    <option th:each="b : ${bairros}" th:value="${b.id}" th:text="${b.nome}"></option>
+                </select>
+            </label>
+            <span th:if="${#fields.hasErrors('bairroId')}" th:errors="*{bairroId}" style="color:orangered"></span>
+        </p>
+        <p>
+            <label>Tipo de calçada
+                <select th:field="*{tipoCalcada}">
+                    <option value="">Selecione...</option>
+                    <option th:each="tc : ${tiposCalcada}" th:value="${tc}" th:text="${tc}"></option>
+                </select>
+            </label>
+            <span th:if="${#fields.hasErrors('tipoCalcada')}" th:errors="*{tipoCalcada}" style="color:orangered"></span>
+        </p>
+        <p>
+            <label>Altitude (m)
+                <input type="number" th:field="*{altitude}">
+            </label>
+            <span th:if="${#fields.hasErrors('altitude')}" th:errors="*{altitude}" style="color:orangered"></span>
+        </p>
+
+        <button type="submit">Salvar</button>
+        <a th:href="@{/trechos}">Cancelar</a>
+    </form>
+</body>
+</html>

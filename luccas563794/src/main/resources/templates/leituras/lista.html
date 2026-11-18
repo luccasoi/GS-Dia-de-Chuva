@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leituras</title>
+</head>
+<body>
+    <a th:href="@{/}">Início</a> | <a th:href="@{/bairros}">Bairros</a> | <a th:href="@{/trechos}">Trechos</a> | <a th:href="@{/leituras}">Leituras</a>
+
+    <h1>Leituras</h1>
+    <p th:if="${erro != null}" th:text="${erro}" style="color:orangered"></p>
+    <a th:href="@{/leituras/novo}">Nova leitura</a>
+
+    <table border="1">
+        <tr>
+            <th>Data e hora</th>
+            <th>Trecho</th>
+            <th>Lâmina (cm)</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+        <tr th:each="l : ${leituras}">
+            <td th:text="${#temporals.format(l.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
+            <td th:text="${l.trechoDescricao}"></td>
+            <td th:text="${l.laminaCm}"></td>
+            <td th:text="${l.status}"></td>
+            <td>
+                <a th:href="@{/leituras/{id}/editar(id=${l.id})}">Editar</a>
+                <form th:action="@{/leituras/{id}/excluir(id=${l.id})}" method="post" style="display:inline">
+                    <button type="submit">Excluir</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

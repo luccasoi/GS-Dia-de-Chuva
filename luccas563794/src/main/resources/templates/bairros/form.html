@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bairro</title>
+</head>
+<body>
+    <a th:href="@{/}">Início</a> | <a th:href="@{/bairros}">Bairros</a> | <a th:href="@{/trechos}">Trechos</a> | <a th:href="@{/leituras}">Leituras</a>
+
+    <h1 th:text="${bairro.id == null} ? 'Novo bairro' : 'Editar bairro'"></h1>
+
+    <form th:action="@{/bairros/salvar}" th:object="${bairro}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <p>
+            <label>Nome
+                <input type="text" th:field="*{nome}">
+            </label>
+            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" style="color:orangered"></span>
+        </p>
+        <p>
+            <label>Zona
+                <select th:field="*{zona}">
+                    <option value="">Selecione...</option>
+                    <option th:each="z : ${zonas}" th:value="${z}" th:text="${z}"></option>
+                </select>
+            </label>
+            <span th:if="${#fields.hasErrors('zona')}" th:errors="*{zona}" style="color:orangered"></span>
+        </p>
+        <p>
+            <label>Possui piscinão
+                <input type="checkbox" th:field="*{possuiPiscinao}">
+            </label>
+        </p>
+
+        <button type="submit">Salvar</button>
+        <a th:href="@{/bairros}">Cancelar</a>
+    </form>
+</body>
+</html>

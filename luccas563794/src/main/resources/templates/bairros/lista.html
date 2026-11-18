@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bairros</title>
+</head>
+<body>
+    <a th:href="@{/}">Início</a> | <a th:href="@{/bairros}">Bairros</a> | <a th:href="@{/trechos}">Trechos</a> | <a th:href="@{/leituras}">Leituras</a>
+
+    <h1>Bairros</h1>
+    <p th:if="${erro != null}" th:text="${erro}" style="color:orangered"></p>
+    <a th:href="@{/bairros/novo}">Novo bairro</a>
+
+    <table border="1">
+        <tr>
+            <th>Nome</th>
+            <th>Zona</th>
+            <th>Possui piscinão</th>
+            <th>Ações</th>
+        </tr>
+        <tr th:each="b : ${bairros}">
+            <td th:text="${b.nome}"></td>
+            <td th:text="${b.zona}"></td>
+            <td th:text="${b.possuiPiscinao} ? 'Sim' : 'Não'"></td>
+            <td>
+                <a th:href="@{/bairros/{id}/editar(id=${b.id})}">Editar</a>
+                <form th:action="@{/bairros/{id}/excluir(id=${b.id})}" method="post" style="display:inline">
+                    <button type="submit">Excluir</button>
+                </form>
+                <a th:href="@{/bairros/{id}/painel(id=${b.id})}">Painel</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
